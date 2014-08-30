@@ -1,0 +1,111 @@
+{# Extend our layout template 
+------------------------------------------------------------ #}
+{% do log('page.html: before extends tag') %}
+
+{% extends "_layout" %}
+
+{% do log('page.html: after extends tag') %}
+
+
+{# Set a variable in our page template 
+------------------------------------------------------------ #}
+{% do log('page.html: before setPageContentVariable set tag') %}
+
+{% set setPageContentVariable = 'Set Variable in Page Template' %}
+
+{% do log('page.html: after setPageContentVariable set tag') %}
+
+
+{# Output block tag in our page template 
+------------------------------------------------------------ #}
+{% block blockContent %}
+	
+	{% do log('page.html: begin blockContent block tag') %}
+
+
+	{# Set a variable within our block tag
+	---------------------------------------------------------- #}
+	{% set setBlockContentVariable = 'Set Content from Block Tag in Page Template' %}
+
+
+	{# Output content in our block tag
+	---------------------------------------------------------- #}
+	<p>Block Content in Page Template</p>
+
+
+	{# Output a variable from our layout template within our block tag
+	---------------------------------------------------------- #}
+	{% do log('page.html: before setLayoutContentVariable within blockContent block tag') %}
+	
+	{% if setLayoutContentVariable is defined %}
+		<p>{{ setLayoutContentVariable }}</p>
+	{% endif %}
+
+	{% do log('page.html: after setLayoutContentVariable within blockContent block tag') %}
+
+
+	{# Output a variable from our page template within our block tag
+	---------------------------------------------------------- #}
+	{% do log('page.html: before setPageContentVariable within blockContent block tag') %}
+	
+	{% if setPageContentVariable is defined %}
+		<p>{{ setPageContentVariable }}</p>
+	{% endif %}
+
+	{% do log('page.html: after setPageContentVariable within blockContent block tag') %}
+
+	
+	{# Output the content of our parent block tag
+	---------------------------------------------------------- #}
+	{% do log('page.html: before parent() within blockContent block tag') %}
+
+	{# {{ parent() }} #}
+
+	{% do log('page.html: before parent() within blockContent block tag') %}
+
+
+	{# Include another template in our block tag
+	   Hand off the `setLayoutContentVariable` from our layout template
+	   to the _partial template.  The `setPageContentVariable` and 
+	   `setBlockContentVariable` are both already available to the
+	   _partial template.
+	---------------------------------------------------------- #}
+	{% do log('page.html: before include tag in blockContent block tag') %}
+
+	{% include '_partial' with { 
+		setLayoutContentVariable : setLayoutContentVariable 
+	} %}
+
+	{% do log('page.html: after include tag in blockContent block tag') %}
+
+
+	{% do log('page.html: end blockContent block tag') %}
+
+{% endblock %}
+
+
+
+{# Output set tag in our page template 
+------------------------------------------------------------ #}
+{% set setLayoutContent %}
+		
+	{% do log('page.html: begin setLayoutContent set tag') %}
+
+
+	{# Output content in our set tag 
+	---------------------------------------------------------- #}
+	<p>Set Content in Page Template</p>aaaa
+
+
+	{# Include another template in our set tag
+	---------------------------------------------------------- #}
+	{% do log('page.html: before include tag in setLayoutContent set tag') %}
+
+	{% include '_partial' %}
+
+	{% do log('page.html: after include tag in setLayoutContent set tag') %}
+
+
+	{% do log('page.html: end setLayoutContent set tag') %}
+
+{% endset %}

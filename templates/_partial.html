@@ -1,0 +1,27 @@
+{% do log('partial.html: begin partial') %}
+
+{# Output content in our include template
+------------------------------------------------------------ #}
+<p>Content in Partial Template</p>
+
+{# Output a set variable from our layout, that was handed 
+   off to our partial template using the `with` statement
+   of the include tag
+------------------------------------------------------------ #}
+{% if setLayoutContentVariable is defined %}
+	{{ setLayoutContentVariable }}<br/>
+{% endif %}
+
+{# Output a set variable from our page where this partial was included
+------------------------------------------------------------ #}
+{% if setPageContentVariable is defined %}
+	{{ setPageContentVariable }}<br/>
+{% endif %}
+
+{# Output a set variable from the block tag where this partial was included
+------------------------------------------------------------ #}
+{% if setBlockContentVariable is defined %}
+	{{ setBlockContentVariable }}<br/>
+{% endif %}
+
+{% do log('partial.html: end partial') %}

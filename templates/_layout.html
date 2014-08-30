@@ -1,0 +1,45 @@
+{% do log('_layout.html: begin layout') %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+	<title>Straight Up Craft : Twig Processing Order Example Templates</title>
+</head>
+<body>
+
+	{# Set a variable in our layout template 
+	------------------------------------------------------------ #}
+	{% set setLayoutContentVariable = 'Set Content from Layout Template' %}
+
+
+	{# Output block tag content in our layout template   
+	------------------------------------------------------------ #}
+	{% do log('_layout.html: before blockContent output tag') %}
+		
+	{% block blockContent %}
+		
+		{% do log('_layout.html: begin blockContent output tag') %}
+		
+		<p>Block Content in Layout Template</p>
+
+		{% do log('_layout.html: end blockContent output tag') %}
+
+	{% endblock %}
+
+	{% do log('_layout.html after blockContent output tag') %}
+
+
+	{# Output set tag content in our layout template 
+	------------------------------------------------------------ #}
+	{% do log('_layout.html: before setLayoutContent output tag') %}
+	
+	{% if setLayoutContent is defined %}
+		{{ setLayoutContent }}
+	{% endif %}
+
+	{% do log('_layout.html: after setLayoutContent output tag') %}
+
+</body>
+</html>
+
+{% do log('_layout.html: end layout') %}
